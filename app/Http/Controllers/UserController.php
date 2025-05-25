@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,7 @@ class UserController extends Controller
 {
     public function fetchUser()
     {
-        $data = DB::table("users")->select('*')->get();
+        $data = DB::table("users")->select('*')->whereNull('deleted_at')->get();
         return response()->json($data);
     }
 
@@ -80,11 +81,20 @@ class UserController extends Controller
     }
     public function deleteUser(Request $request)
     {
-        $user_id = $request-> id;
-        $data = DB::table("users")->where('id', $user_id)->delete();
+        $users = User::find($request->id);
+
+        if (!$users) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Branch not found.'
+            ]);
+        }
+
+        $users->delete();
+
         return response()->json([
-            'success' => (bool)$data,
-            'message' => $data ? 'User deleted successfully.' : 'Failed to delete user.',
+            'success' => (bool)$users,
+            'message' => $users ? 'User deleted successfully.' : 'Failed to delete user.',
         ]);
     }
 }
