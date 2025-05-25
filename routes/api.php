@@ -22,3 +22,6 @@ include "admin_api/user.php";
 include "admin_api/branch.php";
 include "admin_api/category.php";
 include "admin_api/product.php";
+include "admin_api/user_role.php";
+include "admin_api/customer.php";
+include "admin_api/order.php";

@@ -76,12 +76,28 @@ class ProductController extends Controller
     {
         $id = $request -> id;
         $name = $request -> name;
+        $cost = $request -> cost;
+        $price = $request -> price;
         $description = $request -> description;
+        $inStock = $request -> inStock;
+        $category_id = $request -> category_id;
 
+        $imagePath = 'images/default.jpg'; // fallback
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
         try {
-            $data = DB::table('product')->where('id', $id)->update([
+
+            $data = DB::table('product')->where('id', $id)->whereNull('deleted_at')->update([
                 'name' => $name,
                 'description' => $description,
+                'image' => $imagePath,
+                'cost' => $cost,
+                'price' => $price,
+                'inStock' => $inStock,
+                'category_id' => $category_id,
+                'updated_at' => now(),
+
             ]);
 
             return response()->json([
