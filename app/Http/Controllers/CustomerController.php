@@ -38,10 +38,12 @@ class CustomerController extends Controller
         $validated = $validator->validated();
 
         try {
-            $imagePath = 'images/default.jpg'; // fallback
+            $imagePath = asset('storage/images/no-image.png');
+
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('images/customer', 'public');
             }
+
             $data = DB::table("customer")->insert([
                 'name' => $validated['name'],
                 'gender' => $validated['gender'],
@@ -79,7 +81,7 @@ class CustomerController extends Controller
         // Only attempt to store image if it exists
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
+            $imagePath = $request->file('image')->store('images/customer', 'public');
         }
 
         try {
@@ -115,7 +117,6 @@ class CustomerController extends Controller
             ], 500);
         }
     }
-
 
     public function deleteCustomer(Request $request)
     {

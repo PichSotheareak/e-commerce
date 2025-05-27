@@ -33,7 +33,6 @@ class UserController extends Controller
                 'password' => bcrypt($validated['password']),
                 'role_id' => $validated['role_id'] ?? null,
                 'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
             return response()->json([
@@ -63,7 +62,7 @@ class UserController extends Controller
                 'name' => $name,
                 'email' => $email,
                 'gender' => $gender,
-                'password' => Hash::make('password'),
+                'password' => Hash::make($password),
                 'role_id' => $role_id,
             ]);
 
@@ -74,7 +73,7 @@ class UserController extends Controller
         }catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Insert failed.',
+                'message' => 'Update failed.',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -86,7 +85,7 @@ class UserController extends Controller
         if (!$users) {
             return response()->json([
                 'success' => false,
-                'message' => 'Branch not found.'
+                'message' => 'User not found.'
             ]);
         }
 

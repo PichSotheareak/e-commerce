@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Branch;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,12 +27,11 @@ class CategoryController extends Controller
                 'name' => $validated['name'],
                 'description' => $validated['description'],
                 'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
             return response()->json([
                 'success' => (bool) $data,
-                'message' => $data ? 'User added successfully.' : 'Failed to add user.',
+                'message' => $data ? 'Category added successfully.' : 'Failed to add Category.',
             ]);
         }catch (\Exception $exception ){
             return response()->json([
@@ -57,13 +55,13 @@ class CategoryController extends Controller
 
             return response()->json([
                 'success' => (bool)$data,
-                'message' => $data ? 'User Updated successfully.' : 'Failed to Updated user.',
+                'message' => $data ? 'Category Updated successfully.' : 'Failed to Updated Category.',
             ]);
 
         }catch (\Exception $exception){
             return response()->json([
                 'success' => false,
-                'message' => 'Insert failed.',
+                'message' => 'Update failed.',
                 'error' => $exception->getMessage()
             ], 500);
         }

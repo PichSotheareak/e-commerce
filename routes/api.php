@@ -25,3 +25,10 @@ include "admin_api/product.php";
 include "admin_api/user_role.php";
 include "admin_api/customer.php";
 include "admin_api/order.php";
+include "admin_api/invoice.php";
+include "admin_api/payment.php";
+include "admin_api/staff.php";
+include "admin_api/payment_method.php";
+include "admin_api/order_detail.php";
+include "admin_api/invoice_item.php";
+

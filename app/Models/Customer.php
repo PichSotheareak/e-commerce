@@ -22,6 +22,8 @@ class Customer extends Authenticatable
     protected  $table = 'customer';
     protected $fillable = [
         'name',
+        'email',
+        'gender',
         'phone',
         'password',
         'address',

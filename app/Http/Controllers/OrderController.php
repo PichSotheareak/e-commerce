@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -131,7 +129,7 @@ class OrderController extends Controller
 
         return response()->json([
             'success' => (bool)$order,
-            'message' => $order ? 'Customer deleted successfully.' : 'Failed to delete Customer.',
+            'message' => $order ? 'Order deleted successfully.' : 'Failed to delete Order.',
         ]);
     }
 }

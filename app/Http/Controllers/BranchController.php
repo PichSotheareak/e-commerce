@@ -25,9 +25,10 @@ class BranchController extends Controller
 
         try{
 
-            $logoPath = null;
+            $logoPath = asset('storage/images/no-image.png');
+
             if ($request->hasFile('logo')) {
-                $logoPath = $request->file('logo')->store('logos', 'public');
+                $logoPath = $request->file('logo')->store('images/logo', 'public');
             }
 
             $data = DB::table('branch')->insert([
@@ -36,12 +37,11 @@ class BranchController extends Controller
                 'location' => $validated['location'],
                 'logo' => $logoPath,
                 'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
             return response()->json([
                 'success' => (bool) $data,
-                'message' => $data ? 'User added successfully.' : 'Failed to add user.',
+                'message' => $data ? 'Branch added successfully.' : 'Failed to add Branch.',
             ]);
         }catch (\Exception $exception ){
             return response()->json([
@@ -69,13 +69,13 @@ class BranchController extends Controller
 
             return response()->json([
                 'success' => (bool)$data,
-                'message' => $data ? 'User Updated successfully.' : 'Failed to Updated user.',
+                'message' => $data ? 'Branch Updated successfully.' : 'Failed to Updated Branch.',
             ]);
 
         }catch (\Exception $exception){
             return response()->json([
                 'success' => false,
-                'message' => 'Insert failed.',
+                'message' => 'Update failed.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -96,7 +96,7 @@ class BranchController extends Controller
 
         return response()->json([
             'success' => (bool)$branch,
-            'message' => $branch ? 'User deleted successfully.' : 'Failed to delete user.',
+            'message' => $branch ? 'Branch deleted successfully.' : 'Failed to delete Branch.',
         ]);
 
     }

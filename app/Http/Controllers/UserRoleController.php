@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserRoleController extends Controller
 {
@@ -26,12 +24,11 @@ class UserRoleController extends Controller
             $data = DB::table("roles")->insert([
                 'name' => $validated['name'],
                 'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
             return response()->json([
                 'success' => (bool) $data,
-                'message' => $data ? 'User Role added successfully.' : 'Failed to add user.',
+                'message' => $data ? 'User Role added successfully.' : 'Failed to add user Role.',
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -53,12 +50,12 @@ class UserRoleController extends Controller
 
             return response()->json([
                 'success' => (bool)$data,
-                'message' => $data ? 'User  Role Updated successfully.' : 'Failed to Updated user Role .',
+                'message' => $data ? 'User Role Updated successfully.' : 'Failed to Updated user Role .',
             ]);
         }catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Insert failed.',
+                'message' => 'Update failed.',
                 'error' => $e->getMessage()
             ], 500);
         }

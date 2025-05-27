@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Branch;
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +14,6 @@ class ProductController extends Controller
         $data = DB::table('product')->select('*')->whereNull('deleted_at')->get();
         return response()->json($data);
     }
-
 
     public function addProduct(Request $request)
     {
@@ -43,9 +40,8 @@ class ProductController extends Controller
         try {
             $imagePath = 'images/default.jpg'; // fallback
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('images', 'public');
+                $imagePath = $request->file('image')->store('images/product', 'public');
             }
-
 
             $data = DB::table('product')->insert([
                 'name' => trim($validated['name']),
@@ -82,7 +78,8 @@ class ProductController extends Controller
         $inStock = $request -> inStock;
         $category_id = $request -> category_id;
 
-        $imagePath = 'images/default.jpg'; // fallback
+        $imagePath = asset('storage/images/no-image.png');
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
         }
